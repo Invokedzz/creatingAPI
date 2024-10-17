@@ -1,0 +1,1 @@
+import { homeMethod, aboutMethod, registerMethodRender, loginMethodRender } from "../controllers/getMethods";
