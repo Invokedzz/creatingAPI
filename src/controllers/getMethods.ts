@@ -4,6 +4,8 @@ import { messageHome, messageAbout, loginPage, registerPage } from "./messageGET
 
 import { handlersError404 } from "../errors/error404";
 
+// GET methods
+
 export async function homeMethod (request: Request, response: Response, next: NextFunction): Promise <void> {
   
     try {
