@@ -40,6 +40,7 @@
     "@types/express-session": "^1.18.0",
     "@types/express-validator": "^2.20.33",
     "@types/helmet": "^0.0.48",
+    "@types/jest": "^29.5.13",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/morgan": "^1.9.9",
     "@types/pg": "^8.11.10",
