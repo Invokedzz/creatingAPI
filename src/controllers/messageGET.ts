@@ -23,3 +23,27 @@ export async function messageAbout (request: Request, response: Response): Promi
     });
 
 };
+
+export async function registerPage (request: Request, response: Response): Promise <void> {
+
+    response.status(202).json({
+
+        status: "OK",
+
+        message: "Register? Register what?",
+
+    });
+
+};
+
+export async function loginPage (request: Request, response: Response): Promise <void> {
+
+    response.status(202).json({
+
+        status: "OK",
+
+        message: "Login? What about Logan?",
+
+    });
+
+};
