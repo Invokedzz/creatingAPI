@@ -1,33 +1,37 @@
 import { Request, Response, NextFunction } from "express";
 
+import { messageHome, messageAbout } from "./messageGET";
+
+import { handlersError404 } from "../errors/error404";
+
 export async function homeMethod (request: Request, response: Response, next: NextFunction): Promise <void> {
   
     try {
 
-        response.status(200).json({
-           
-            status: "OK",
-
-            message: "Welcome! Make yourself home",
-
-        });
+        await messageHome(request, response);
 
     } catch (error) {
 
         console.error("Something went wrong:", error);
         
-        response.status(401).json({
-
-            status: "Not found",
-
-            message: "Please, try another route",
-
-        });
+        handlersError404(request, response);
 
     };
 
 };
 
-export function aboutMethod (request: Request, response: Response, next: NextFunction): void {
+export async function aboutMethod (request: Request, response: Response, next: NextFunction): Promise <void> {
+
+    try {
+
+        await messageAbout(request, response);
+
+    } catch (error) {
+
+        console.error("Something went wrong:", error);
+
+        handlersError404(request, response);
+
+    };
 
 };
