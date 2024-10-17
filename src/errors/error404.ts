@@ -1,3 +1,5 @@
+// Page for Not Found error
+
 import { Request, Response } from "express";
 
 export function handlersError404 (request: Request, response: Response): void {
