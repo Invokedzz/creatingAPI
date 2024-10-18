@@ -6,7 +6,9 @@ import { registerType } from "../types/registerType";
 
 import { Request, Response } from "express";
 
-import { lengthEmailError, lengthPasswordError, lengthUsernameError } from "src/errors/lengthErrorUser";
+import { lengthEmailError, lengthPasswordError, lengthUsernameError } from "../errors/lengthErrorUser";
+
+import { textLengthError, titleLengthError, genreLengthError } from "../errors/fanficInputErrors";
 
 export async function validateRegisterLength (
 
@@ -82,15 +84,37 @@ export async function validateLoginLength (
 
 export async function validateFanficLength (
     
-    fanficValue: fanficValidation
+    fanficValue: fanficValidation,
+
+    request: Request,
+
+    response: Response,
 
 ): Promise <string []> {
 
     const errors: string [] = [];
 
-    if (!fanficValue.title && !fanficValue.genre && !fanficValue.text) {
+    if (fanficValue.title.length < 10) {
 
-        errors.push("Insert title, epilogue and text field");
+        errors.push("Title must be at least 10 characters long");
+
+        await titleLengthError(request, response);
+
+    };
+
+    if (fanficValue.text.length < 100) {
+
+        errors.push("Text must be at least 100 characters long");
+
+        await textLengthError(request, response);
+
+    };
+
+    if (fanficValue.genre.length < 3) {
+
+        errors.push("Genre must be at least 3 characters long");
+
+        await genreLengthError(request, response);
 
     };
 
