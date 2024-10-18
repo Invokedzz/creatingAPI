@@ -6,7 +6,7 @@ import { homeMethod, aboutMethod, registerMethodRender, loginMethodRender } from
 
 export const sendHomeMethod = async (request: Request, response: Response, next: NextFunction): Promise <void> => {
   
-    await homeMethod(request, response, next);
+    await homeMethod(request, response);
 
     next();
 
@@ -14,7 +14,7 @@ export const sendHomeMethod = async (request: Request, response: Response, next:
 
 export const sendAboutMethod = async (request: Request, response: Response, next: NextFunction): Promise <void> => {
 
-    await aboutMethod(request, response, next);
+    await aboutMethod(request, response);
 
     next();
 
@@ -22,7 +22,7 @@ export const sendAboutMethod = async (request: Request, response: Response, next
 
 export const sendRegisterRender = async (request: Request, response: Response, next: NextFunction): Promise <void> => {
 
-    await registerMethodRender(request, response, next);
+    await registerMethodRender(request, response);
 
     next();
 
@@ -30,7 +30,7 @@ export const sendRegisterRender = async (request: Request, response: Response, n
 
 export const sendLoginRender = async (request: Request, response: Response, next: NextFunction): Promise <void> => {
 
-    await loginMethodRender(request, response, next);
+    await loginMethodRender(request, response);
 
     next();
 
