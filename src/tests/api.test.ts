@@ -10,26 +10,6 @@ describe ("homeMethod GET test", (): void => {
 
     let Next: NextFunction;
 
-    beforeEach((): void => {
-
-        Request = {};
-
-        Response = {
-
-            json: jest.fn(),
-
-        };
-
-        Next = jest.fn();
-
-    });
-
-    afterEach((): void => {
-
-        jest.clearAllMocks();
-
-    });
-
     it ("Should return the proper values for homeMethod", async (): Promise <void> => {
 
     });

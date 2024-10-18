@@ -6,7 +6,7 @@ import { handlersError404 } from "../errors/error404";
 
 // GET methods
 
-export async function homeMethod (request: Request, response: Response, next: NextFunction): Promise <void> {
+export async function homeMethod (request: Request, response: Response): Promise <void> {
   
     try {
 
@@ -22,7 +22,7 @@ export async function homeMethod (request: Request, response: Response, next: Ne
 
 };
 
-export async function aboutMethod (request: Request, response: Response, next: NextFunction): Promise <void> {
+export async function aboutMethod (request: Request, response: Response): Promise <void> {
 
     try {
 
@@ -38,7 +38,7 @@ export async function aboutMethod (request: Request, response: Response, next: N
 
 };
 
-export async function registerMethodRender (request: Request, response: Response, next: NextFunction): Promise <void> {
+export async function registerMethodRender (request: Request, response: Response): Promise <void> {
   
     try {
 
@@ -54,7 +54,7 @@ export async function registerMethodRender (request: Request, response: Response
 
 };
 
-export async function loginMethodRender (request: Request, response: Response, next: NextFunction): Promise <void> {
+export async function loginMethodRender (request: Request, response: Response): Promise <void> {
 
     try {
 
