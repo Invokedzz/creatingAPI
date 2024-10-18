@@ -50,7 +50,43 @@ describe ("homeMethod GET test", (): void => {
 
 describe ("aboutMethod GET test", (): void => {
 
+    let Request: Partial <Request>;
+
+    let Response: Partial <Response>;
+
+    beforeEach((): void => {
+
+        Request = {};
+
+        Response = {
+
+            status: jest.fn().mockReturnThis(),
+
+            json: jest.fn(),
+
+        };
+
+    });
+
+    afterEach((): void => {
+
+        jest.clearAllMocks();
+
+    });
+
     it ("Should return the proper values for aboutMethod", async (): Promise <void> => {
+
+        await aboutMethod(Request as Request, Response as Response);
+
+        expect(Response.status).toHaveBeenCalledWith(200);
+
+    });
+
+    it ("Should return the error for aboutMethod", (): void => {
+
+        handlersError404(Request as Request, Response as Response);
+
+        expect(Response.status).toHaveBeenCalledWith(404);
 
     });
 
