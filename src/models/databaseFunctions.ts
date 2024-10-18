@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 
+import { PrismaClient } from "@prisma/client";
+
 import { handlersError404 } from "../errors/error404";
 
 import { handlersError401 } from "../errors/error401";
