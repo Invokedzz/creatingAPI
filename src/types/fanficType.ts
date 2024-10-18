@@ -6,7 +6,7 @@ export type fanficValidation = {
 
     characters?: string,
 
-    epilogue: string,
+    epilogue?: string,
 
     text: string,
 
