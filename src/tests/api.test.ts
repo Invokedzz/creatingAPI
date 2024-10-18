@@ -1,6 +1,8 @@
-import { NextFunction } from "express";
+import { Request, Response } from "express";
 
 import { homeMethod, aboutMethod, registerMethodRender, loginMethodRender } from "../controllers/getMethods";
+
+import { handlersError404 } from "../errors/error404";
 
 describe ("homeMethod GET test", (): void => {
 
@@ -8,9 +10,39 @@ describe ("homeMethod GET test", (): void => {
 
     let Response: Partial <Response>;
 
-    let Next: NextFunction;
+    beforeEach((): void => {
+
+        Request = {};
+
+        Response = {
+
+            status: jest.fn().mockReturnThis(),
+
+            json: jest.fn(),
+
+        };
+
+    });
+
+    afterEach((): void => {
+
+        jest.clearAllMocks();
+
+    });
 
     it ("Should return the proper values for homeMethod", async (): Promise <void> => {
+
+        await homeMethod(Request as Request, Response as Response);
+
+        expect(Response.status).toHaveBeenCalledWith(200);
+
+    });
+
+    it ("Should return the error for homeMethod", (): void => {
+
+        handlersError404(Request as Request, Response as Response);
+
+        expect(Response.status).toHaveBeenCalledWith(404);
 
     });
 
