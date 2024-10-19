@@ -29,6 +29,10 @@ router.get('/findUsers', findUsersList);
 
 router.put('/editFanfic/:id', fanficEditMethod);
 
+router.put('/editUser/:id')
+
+router.delete('/deleteUser/:id')
+
 router.delete('/deleteFanfic/:id', fanficDeleteMethod);
 
 export { router };
