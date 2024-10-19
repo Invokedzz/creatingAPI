@@ -4,6 +4,7 @@ import { sendHomeMethod, sendAboutMethod, sendRegisterRender, sendLoginRender } 
 
 import { findFanficsList, fanficCreationMethod, fanficEditMethod, fanficDeleteMethod, findUsersList, loginPostUser, registerPostUser } from "src/models/middlewareDatabase";
 
+
 const router = Router();
 
 router.get("/", sendHomeMethod);
@@ -13,5 +14,21 @@ router.get("/about", sendAboutMethod);
 router.get('/register', sendRegisterRender);
 
 router.get('/login', sendLoginRender);
+
+// Nice routes, testing them alongside Postman
+
+router.post('/registerUser', registerPostUser);
+
+router.post('/loginUser', loginPostUser);
+
+router.post('/createFanfic', fanficCreationMethod);
+
+router.get('/findFanfics', findFanficsList);
+
+router.get('/findUsers', findUsersList);
+
+router.put('/editFanfic/:id', fanficEditMethod);
+
+router.delete('/deleteFanfic/:id', fanficDeleteMethod);
 
 export { router };

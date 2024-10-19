@@ -1,6 +1,14 @@
-import express from "express";
+import express, { Request, Response } from "express";
 
 import { router } from "./routes/routes";
+
+import { validateFanficLength, validateLoginLength, validateRegisterLength } from "./middlewares/validLength";
+
+import { fanficValidation } from "./types/fanficType";
+
+import { loginType } from "./types/loginType";
+
+import { registerType } from "./types/registerType";
 
 const application = express();
 
