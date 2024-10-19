@@ -16,6 +16,7 @@ import { registerType } from "../types/registerType";
 
 import { Request, Response } from "express";
 
+
 describe ("Test for validateFanficLength", (): void => {
 
     let Request: Partial <Request>;
@@ -57,6 +58,16 @@ describe ("Test for validateFanficLength", (): void => {
     it ("Should return the proper values of validateFanficLength", async (): Promise <void> => {
 
         await validateFanficLength(fanficValidation as fanficValidation, Request as Request, Response as Response);
+
+        expect(fanficValidation).toEqual({
+
+            title: "title",
+
+            genre: "genre",
+
+            text: "text",
+
+        });
 
     });
 
@@ -130,7 +141,13 @@ describe ("Test for validateLoginLength", (): void => {
 
         };
 
-        loginType = {};
+        loginType = {
+
+            email: "email@gmail.com",
+
+            password: "randomPassword",
+
+        };
 
     });
 
@@ -141,6 +158,16 @@ describe ("Test for validateLoginLength", (): void => {
     });
 
     it ("Should return the proper values of validateLoginLength", async (): Promise <void> => {
+
+        await validateLoginLength(loginType as loginType, Request as Request, Response as Response);
+
+        expect(loginType).toEqual({
+
+            email: "email@gmail.com",
+
+            password: "randomPassword",
+
+        });
 
     });
 
@@ -198,7 +225,15 @@ describe ("Test for validateRegisterLength", (): void => {
 
         };
 
-        registerType = {};
+        registerType = {
+
+            username: "username",
+
+            email: "email@gmail.com",
+
+            password: "password",
+
+        };
 
     });
 
@@ -209,6 +244,18 @@ describe ("Test for validateRegisterLength", (): void => {
     });
 
     it ("Should return the proper values of validateRegisterLength", async (): Promise <void> => {
+        
+        await validateRegisterLength(registerType as registerType, Request as Request, Response as Response);
+
+        expect(registerType).toEqual({
+
+            username: "username",
+
+            email: "email@gmail.com",
+
+            password: "password",
+
+        });
 
     });
 
