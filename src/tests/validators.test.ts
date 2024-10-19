@@ -8,6 +8,12 @@ import { lengthUsernameError, lengthEmailError, lengthPasswordError } from "../e
 
 import { textLengthError, titleLengthError, genreLengthError } from "../errors/fanficInputErrors";
 
+import { fanficValidation } from "../types/fanficType";
+
+import { loginType } from "../types/loginType";
+
+import { registerType } from "../types/registerType";
+
 import { Request, Response } from "express";
 
 describe ("Test for validateFanficLength", (): void => {
@@ -16,9 +22,21 @@ describe ("Test for validateFanficLength", (): void => {
 
     let Response: Partial <Response>;
 
+    let fanficValidation: Partial <fanficValidation>;
+
     beforeEach((): void => {
 
         Request = {};
+
+        fanficValidation = {
+
+            title: "title",
+
+            genre: "genre",
+
+            text: "text",
+
+        };
 
         Response = {
 
@@ -37,6 +55,8 @@ describe ("Test for validateFanficLength", (): void => {
     });
 
     it ("Should return the proper values of validateFanficLength", async (): Promise <void> => {
+
+        await validateFanficLength(fanficValidation as fanficValidation, Request as Request, Response as Response);
 
     });
 
@@ -96,6 +116,8 @@ describe ("Test for validateLoginLength", (): void => {
 
     let Response: Partial <Response>;
 
+    let loginType: Partial <loginType>;
+
     beforeEach((): void => {
 
         Request = {};
@@ -107,6 +129,8 @@ describe ("Test for validateLoginLength", (): void => {
             json: jest.fn(),
 
         };
+
+        loginType = {};
 
     });
 
@@ -160,6 +184,8 @@ describe ("Test for validateRegisterLength", (): void => {
 
     let Response: Partial <Response>;
 
+    let registerType: Partial <registerType>;
+
     beforeEach((): void => {
         
         Request = {};
@@ -171,6 +197,8 @@ describe ("Test for validateRegisterLength", (): void => {
             json: jest.fn(),
 
         };
+
+        registerType = {};
 
     });
 
