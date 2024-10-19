@@ -25,3 +25,15 @@ export const fanficCreationMethod = async (request: Request, response: Response,
     next();
 
 };
+
+export const fanficEditMethod = async (request: Request, response: Response, next: NextFunction): Promise <void> => {
+
+    
+
+};
+
+export const fanficDeleteMethod = async (request: Request, response: Response, next: NextFunction): Promise <void> => {
+  
+    
+
+};
