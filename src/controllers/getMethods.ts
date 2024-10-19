@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 
 import { messageHome, messageAbout, loginPage, registerPage } from "./messageGET";
 
