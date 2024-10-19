@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction, request } from "express";
 
-import { registerUser, loginUser, createFanfic, findUsers, findFanfics, deleteFanfics, editFanfic } from "./databaseFunctions";
+import { registerUser, loginUser, createFanfic, findUsers, findFanfics, deleteFanfics, editFanfic, deleteUser, editUser } from "./databaseFunctions";
 
 export const registerPostUser = async (request: Request, response: Response, next: NextFunction): Promise <void> => {
 
@@ -37,6 +37,22 @@ export const findFanficsList = async (request: Request, response: Response, next
 export const findUsersList = async (request: Request, response: Response, next: NextFunction): Promise <void> => {
   
     await findUsers(request, response);
+
+    next();
+
+};
+
+export const editUsersMethod = async (request: Request, response: Response, next: NextFunction): Promise <void> => {
+
+    await editUser(request, response);
+
+    next();
+
+};
+
+export const deleteUsersMethod = async (request: Request, response: Response, next: NextFunction): Promise <void> => {
+  
+    await deleteUser(request, response);
 
     next();
 

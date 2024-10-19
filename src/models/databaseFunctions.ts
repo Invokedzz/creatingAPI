@@ -50,6 +50,34 @@ export async function findUsers (request: Request, response: Response): Promise 
 
 };
 
+export async function editUser (request: Request, response: Response): Promise <void> {
+  
+    try {
+
+    } catch (error) {
+
+        console.error(error);
+
+        handlersError401(request, response);
+
+    };
+
+};
+
+export async function deleteUser (request: Request, response: Response): Promise <void> {
+
+    try {
+
+    } catch (error) {
+
+        console.error(error);
+
+        handlersError401(request, response);
+
+    };
+
+};
+
 export async function createFanfic (request: Request, response: Response): Promise <void> {
 
     try {
