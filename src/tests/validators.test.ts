@@ -122,10 +122,34 @@ describe ("Test for validateLoginLength", (): void => {
 
     it ("Should return the errors for validateLoginLength (email)", async (): Promise <void> => {
         
+        await lengthEmailError(Request as Request, Response as Response);
+
+        expect(Response.status).toHaveBeenCalledWith(400);
+
+        expect(Response.json).toHaveBeenCalledWith({
+
+            message: "Insert a valid email",
+
+            status: "Bad request",
+
+        });
+
     });
 
     it ("Should return the errors for validateLoginLength (password)", async (): Promise <void> => {
         
+        await lengthPasswordError(Request as Request, Response as Response);
+
+        expect(Response.status).toHaveBeenCalledWith(400);
+
+        expect(Response.json).toHaveBeenCalledWith({
+
+            message: "Insert a password that is at least 6 characters long!",
+
+            status: "Bad request",
+
+        });
+
     });
 
 });
@@ -162,13 +186,17 @@ describe ("Test for validateRegisterLength", (): void => {
 
     it ("Should return the errors for validateRegisterLength (username)", async (): Promise <void> => {
 
-    });
+        await lengthUsernameError(Request as Request, Response as Response);
 
-    it ("Should return the errors for validateRegisterLength (email)", async (): Promise <void> => {
+        expect(Response.status).toHaveBeenCalledWith(400);
 
-    });
+        expect(Response.json).toHaveBeenCalledWith({
 
-    it ("Should return the errors for validateRegisterLength (password)", async (): Promise <void> => {
+            message: "Insert a username that is at least 6 characters long!",
+
+            status: "Bad request",
+
+        });
 
     });
 
