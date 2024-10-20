@@ -58,6 +58,18 @@ export async function registerUser (request: Request, response: Response): Promi
 
         console.error(error);
 
+        if (error instanceof z.ZodError) {
+
+            response.status(400).json({
+
+                status: 400,
+
+                message: error.issues,
+
+            });
+
+        };
+
         handlersError404(request, response);
 
     };
