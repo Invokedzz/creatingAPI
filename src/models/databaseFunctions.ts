@@ -76,9 +76,25 @@ export async function registerUser (request: Request, response: Response): Promi
 
 };
 
-export async function loginUser (request: Request, response: Response): Promise <void> {
+export async function loginUser (request: Request, response: Response): Promise <void | unknown> {
 
     try {
+
+        const { email, password } = request.body;
+
+        const loginUser = await prisma.users.findFirst({ where: { email } });
+
+        if (!loginUser) return handlersError404(request, response);
+
+        const passwordMatch = await bcrypt.compare(password, loginUser.password);
+
+        if (passwordMatch && loginUser) {
+
+            const token = jwt.sign({ id: loginUser.id }, process.env.JWT_SECRET as string, { expiresIn: "1d" });
+
+            return response.status(200).json({ token });
+
+        };
 
     } catch (error) {
 
@@ -93,6 +109,12 @@ export async function loginUser (request: Request, response: Response): Promise 
 export async function findUsers (request: Request, response: Response): Promise <void> {
 
     try {
+
+        const users = await prisma.users.findMany();
+
+        if (!users) return handlersError404(request, response);
+
+        response.status(200).json({ users });
 
     } catch (error) {
 
@@ -122,11 +144,23 @@ export async function deleteUser (request: Request, response: Response): Promise
 
     try {
 
+        const { id } = request.params;
+
+        const user = await prisma.users.delete({ where: { id } });
+
+        response.status(204).json({
+            
+            user,
+             
+            message: "User deleted successfully",
+
+        });
+
     } catch (error) {
 
-        console.error(error);
+    //    console.error(error);
 
-        handlersError401(request, response);
+    //    handlersError401(request, response);
 
     };
 
