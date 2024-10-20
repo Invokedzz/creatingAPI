@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
 
+import bcrypt from "bcryptjs";
+
 import { z } from "zod";
+
+import jwt from "jsonwebtoken";
 
 import { PrismaClient } from "@prisma/client/extension";
 
@@ -14,7 +18,39 @@ export async function registerUser (request: Request, response: Response): Promi
 
         const { username, email, password } = request.body;
 
-        const registerUser = await PrismaClient.user.create({ data: { username, email, password } });
+        const userSchema = z.object({
+
+            username: z.string().min(6),    
+
+            email: z.string().email(),
+
+            password: z.string().min(6),
+
+        });
+
+        userSchema.parse({ username, email, password });
+
+        const passwordHash = await bcrypt.hash(password, 10);
+
+        const registerUser = await PrismaClient.user.create(
+
+            { data: { username, email, passwordHash } },
+
+        );
+
+        if (registerUser) {
+
+            response.status(201).json({
+
+                status: 201,
+
+                message: "User created successfully",
+
+                user: { id: registerUser.id, username: registerUser.username, email: registerUser.email },
+
+            });
+
+        };
 
     } catch (error) {
 
