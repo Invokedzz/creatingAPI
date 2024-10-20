@@ -76,25 +76,10 @@ export async function registerUser (request: Request, response: Response): Promi
 
 };
 
-export async function loginUser (request: Request, response: Response): Promise <void | unknown> {
+export async function loginUser (request: Request, response: Response): Promise <void> {
 
     try {
 
-        const { email, password } = request.body;
-
-        const loginUser = await prisma.users.findFirst({ where: { email } });
-
-        if (!loginUser) return handlersError404(request, response);
-
-        const passwordMatch = await bcrypt.compare(password, loginUser.password);
-
-        if (passwordMatch && loginUser) {
-
-            const token = jwt.sign({ id: loginUser.id }, process.env.JWT_SECRET as string, { expiresIn: "1d" });
-
-            return response.status(200).json({ token });
-
-        };
 
     } catch (error) {
 
@@ -158,9 +143,9 @@ export async function deleteUser (request: Request, response: Response): Promise
 
     } catch (error) {
 
-    //    console.error(error);
+        console.error(error);
 
-    //    handlersError401(request, response);
+        handlersError401(request, response);
 
     };
 
@@ -169,6 +154,7 @@ export async function deleteUser (request: Request, response: Response): Promise
 export async function createFanfic (request: Request, response: Response): Promise <void> {
 
     try {
+
 
     } catch (error) {
 
