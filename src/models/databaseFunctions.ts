@@ -12,6 +12,8 @@ export async function registerUser (request: Request, response: Response): Promi
 
     try {
 
+        
+
     } catch (error) {
 
         console.error(error);
