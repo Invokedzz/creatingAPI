@@ -2,7 +2,7 @@ import { Router } from "express";
 
 import { sendHomeMethod, sendAboutMethod, sendRegisterRender, sendLoginRender } from "../controllers/sendMethods";
 
-import { findFanficsList, fanficCreationMethod, fanficEditMethod, fanficDeleteMethod, findUsersList, loginPostUser, registerPostUser, editUsersMethod, deleteUsersMethod } from "src/models/middlewareDatabase";
+import { findFanficsList, fanficCreationMethod, fanficEditMethod, fanficDeleteMethod, findUsersList, loginPostUser, registerPostUser, editUsersMethod, deleteUsersMethod } from "../models/middlewareDatabase";
 
 
 const router = Router();

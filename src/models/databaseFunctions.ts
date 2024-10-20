@@ -6,11 +6,13 @@ import { z } from "zod";
 
 import jwt from "jsonwebtoken";
 
-import { PrismaClient } from "@prisma/client/extension";
+import { PrismaClient } from "@prisma/client";
 
 import { handlersError404 } from "../errors/error404";
 
 import { handlersError401 } from "../errors/error401";
+
+const prisma = new PrismaClient();
 
 export async function registerUser (request: Request, response: Response): Promise <void> {
 
@@ -32,9 +34,9 @@ export async function registerUser (request: Request, response: Response): Promi
 
         const passwordHash = await bcrypt.hash(password, 10);
 
-        const registerUser = await PrismaClient.user.create(
+        const registerUser = await prisma.users.create(
 
-            { data: { username, email, passwordHash } },
+            { data: { username, email, password: passwordHash } },
 
         );
 
@@ -46,7 +48,7 @@ export async function registerUser (request: Request, response: Response): Promi
 
                 message: "User created successfully",
 
-                user: { id: registerUser.id, username: registerUser.username, email: registerUser.email },
+                user: { id: registerUser.id, username: registerUser.username, email: registerUser.email, password: registerUser.password },
 
             });
 
