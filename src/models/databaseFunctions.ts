@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 
-import { PrismaClient } from "@prisma/client";
-
 import { z } from "zod";
+
+import { PrismaClient } from "@prisma/client/extension";
 
 import { handlersError404 } from "../errors/error404";
 
@@ -12,7 +12,9 @@ export async function registerUser (request: Request, response: Response): Promi
 
     try {
 
-        
+        const { username, email, password } = request.body;
+
+        const registerUser = await PrismaClient.user.create({ data: { username, email, password } });
 
     } catch (error) {
 
