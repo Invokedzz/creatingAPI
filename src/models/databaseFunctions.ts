@@ -254,7 +254,7 @@ export async function editFanfic (request: Request, response: Response): Promise
         response.status(200).json({
 
             editFanfic,
-            
+
             message: "Fanfic edited successfully"
 
         });
@@ -272,6 +272,18 @@ export async function editFanfic (request: Request, response: Response): Promise
 export async function deleteFanfics (request: Request, response: Response): Promise <void> {
 
     try {
+
+        const { id } = request.params;
+
+        const fanfics = await prisma.fanCreation.delete({ where: { id } });
+
+        response.status(200).json({
+            
+            fanfics,
+            
+            message: "Fanfics deleted successfully",
+            
+        });
 
     } catch (error) {
 
