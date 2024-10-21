@@ -2,8 +2,6 @@ import { Request, Response } from "express";
 
 import bcrypt from "bcryptjs";
 
-import { z } from "zod";
-
 import jwt from "jsonwebtoken";
 
 import dotenv from "dotenv";
