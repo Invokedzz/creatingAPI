@@ -119,7 +119,21 @@ export async function editUser (request: Request, response: Response): Promise <
 
         const { username, email, password } = request.body;
 
-        const editUsers = await prisma.users.update({ where: { id }, data: { username, email, password } });
+        const editUserSchema = z.object({
+
+            username: z.string().min(6).max(50).optional(),
+
+            email: z.string().email().optional(),
+
+            password: z.string().min(6).max(50).optional(),
+
+        });
+
+        editUserSchema.parse({ username, email, password });
+
+        const passwordHash = await bcrypt.hash(password, 10);
+
+        const editUsers = await prisma.users.update({ where: { id }, data: { username, email, password: passwordHash } });
 
         response.status(200).json({
              
@@ -132,6 +146,18 @@ export async function editUser (request: Request, response: Response): Promise <
     } catch (error) {
 
         console.error(error);
+
+        if (error instanceof z.ZodError) {
+
+            response.status(400).json({
+
+                status: 400,
+
+                message: error.issues,
+
+            });
+
+        };
 
         handlersError401(request, response);
 
