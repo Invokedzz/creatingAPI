@@ -6,6 +6,11 @@ import { z } from "zod";
 
 import jwt from "jsonwebtoken";
 
+import dotenv from "dotenv";
+
+dotenv.config({
+    path: __dirname + '/file.env' });
+
 import { PrismaClient } from "@prisma/client";
 
 import { handlersError404 } from "../errors/error404";
@@ -34,6 +39,8 @@ export async function registerUser (request: Request, response: Response): Promi
 
         const passwordHash = await bcrypt.hash(password, 10);
 
+        const token = jwt.sign({ email }, process.env.JWT_SECRET as string, { expiresIn: "1d" });
+
         const registerUser = await prisma.users.create(
 
             { data: { username, email, password: passwordHash } },
@@ -51,6 +58,8 @@ export async function registerUser (request: Request, response: Response): Promi
                 user: { id: registerUser.id, username: registerUser.username, email: registerUser.email, password: registerUser.password },
 
             });
+
+            response.cookie("jwt", token, { httpOnly: true, sameSite: "none", secure: true });
 
         };
 
@@ -80,6 +89,29 @@ export async function loginUser (request: Request, response: Response): Promise 
 
     try {
 
+        const { email, password } = request.body;
+
+        const loginUser = await prisma.users.findFirst({ where: { email } });
+
+        if (!loginUser) return handlersError404(request, response);
+
+        if (await bcrypt.compare(password, loginUser.password)) {
+
+            const token = jwt.sign({ email }, process.env.JWT_SECRET as string, { expiresIn: "1d" });
+
+            response.cookie("jwt", token, { httpOnly: true, sameSite: "none", secure: true });
+
+            response.status(200).json({
+
+                status: 200,
+
+                message: "User logged in successfully",
+
+                user: { id: loginUser.id, username: loginUser.username, email: loginUser.email, password: loginUser.password },
+
+            });
+
+        };
 
     } catch (error) {
 
