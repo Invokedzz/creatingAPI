@@ -161,17 +161,7 @@ export async function editUser (request: Request, response: Response): Promise <
 
         console.error(error);
 
-        if (error instanceof z.ZodError) {
-
-            response.status(400).json({
-
-                status: 400,
-
-                message: error.issues,
-
-            });
-
-        };
+        zodErrorFunction(response, error);
 
         handlersError401(request, response);
 
@@ -209,6 +199,17 @@ export async function createFanfic (request: Request, response: Response): Promi
 
     try {
 
+        const { title, genre, characters, epilogue, text, fanficid, user } = request.body;
+
+        const createFanfic = await prisma.fanCreation.create({ data: { title, genre, characters, epilogue, text, fanficid, user: { connect: { id: user } } }, });
+
+        response.status(201).json({
+            
+            createFanfic,
+            
+            message: "Fanfic created successfully",
+            
+        });
 
     } catch (error) {
 
