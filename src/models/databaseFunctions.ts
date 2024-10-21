@@ -15,6 +15,8 @@ import { PrismaClient } from "@prisma/client";
 
 import { userSchema } from "../middlewares/zod.middleware";
 
+import { editFanficSchema, editUserSchema } from "../middlewares/zod.middleware";
+
 import { zodErrorFunction } from "../middlewares/zod.error";
 
 import { handlersError404 } from "../errors/error404";
@@ -32,8 +34,6 @@ export async function registerUser (request: Request, response: Response): Promi
         userSchema.parse({ username, email, password });
 
         const passwordHash = await bcrypt.hash(password, 10);
-
-        const token = jwt.sign({ email }, process.env.JWT_SECRET as string, { expiresIn: "1d" });
 
         const registerUser = await prisma.users.create(
 
@@ -133,16 +133,6 @@ export async function editUser (request: Request, response: Response): Promise <
 
         const { username, email, password } = request.body;
 
-        const editUserSchema = z.object({
-
-            username: z.string().min(6).max(50).optional(),
-
-            email: z.string().email().optional(),
-
-            password: z.string().min(6).max(50).optional(),
-
-        });
-
         editUserSchema.parse({ username, email, password });
 
         const passwordHash = await bcrypt.hash(password, 10);
@@ -203,6 +193,8 @@ export async function createFanfic (request: Request, response: Response): Promi
 
         const createFanfic = await prisma.fanCreation.create({ data: { title, genre, characters, epilogue, text, fanficid, user: { connect: { id: user } } }, });
 
+        editFanficSchema.parse({ title, genre, characters, epilogue, text });
+
         response.status(201).json({
             
             createFanfic,
@@ -250,6 +242,8 @@ export async function editFanfic (request: Request, response: Response): Promise
         const { title, genre, characters, epilogue, text } = request.body;
 
         const editFanfic = await prisma.fanCreation.update({ where: { id }, data: { title, genre, characters, epilogue, text } });
+
+        editFanficSchema.parse({ title, genre, characters, epilogue, text });
 
         response.status(200).json({
 
