@@ -176,7 +176,7 @@ export async function deleteUser (request: Request, response: Response): Promise
     } catch (error) {
 
         console.error(error);
-
+        
         handlersError401(request, response);
 
     };
