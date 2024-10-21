@@ -115,6 +115,20 @@ export async function editUser (request: Request, response: Response): Promise <
   
     try {
 
+        const { id } = request.params;
+
+        const { username, email, password } = request.body;
+
+        const editUsers = await prisma.users.update({ where: { id }, data: { username, email, password } });
+
+        response.status(200).json({
+             
+            editUsers,
+
+            message: "User edited successfully",
+
+         });
+
     } catch (error) {
 
         console.error(error);
