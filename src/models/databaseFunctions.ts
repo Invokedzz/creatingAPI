@@ -225,6 +225,12 @@ export async function findFanfics (request: Request, response: Response): Promis
 
     try {
 
+        const { id } = request.params;
+
+        const fanfics = await prisma.fanCreation.findMany({ where: { user: { id } } });
+
+        response.status(200).json({ fanfics });
+
     } catch (error) {
 
         console.error(error);
