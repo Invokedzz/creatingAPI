@@ -245,6 +245,20 @@ export async function editFanfic (request: Request, response: Response): Promise
 
     try {
 
+        const { id } = request.params;
+
+        const { title, genre, characters, epilogue, text } = request.body;
+
+        const editFanfic = await prisma.fanCreation.update({ where: { id }, data: { title, genre, characters, epilogue, text } });
+
+        response.status(200).json({
+
+            editFanfic,
+            
+            message: "Fanfic edited successfully"
+
+        });
+
     } catch (error) {
 
         console.error(error);
