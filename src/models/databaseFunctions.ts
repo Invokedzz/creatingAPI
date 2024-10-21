@@ -13,6 +13,10 @@ dotenv.config({
 
 import { PrismaClient } from "@prisma/client";
 
+import { userSchema } from "../middlewares/zod.middleware";
+
+import { zodErrorFunction } from "../middlewares/zod.error";
+
 import { handlersError404 } from "../errors/error404";
 
 import { handlersError401 } from "../errors/error401";
@@ -24,16 +28,6 @@ export async function registerUser (request: Request, response: Response): Promi
     try {
 
         const { username, email, password } = request.body;
-
-        const userSchema = z.object({
-
-            username: z.string().min(6),    
-
-            email: z.string().email(),
-
-            password: z.string().min(6),
-
-        });
 
         userSchema.parse({ username, email, password });
 
@@ -59,25 +53,13 @@ export async function registerUser (request: Request, response: Response): Promi
 
             });
 
-            response.cookie("jwt", token, { httpOnly: true, sameSite: "none", secure: true });
-
         };
 
     } catch (error) {
 
         console.error(error);
 
-        if (error instanceof z.ZodError) {
-
-            response.status(400).json({
-
-                status: 400,
-
-                message: error.issues,
-
-            });
-
-        };
+        zodErrorFunction(response, error);
 
         handlersError404(request, response);
 
