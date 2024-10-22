@@ -20,11 +20,14 @@ To create all this thing, I used the following technologies/libraries:
 
 6) Jsonwebtoken
 
-7) Dotenv, Cors and Jest.
+7) Dotenv;
 
-If, for some reason you want to download this project in your machine and test it, you can download the repository file; and in the terminal, type the following things (by the way, you would also need an engine like Postman/Insomnia to send JSON messages to the API):
+8) Cors;
 
+9) Jest.
+
+If you want to download this project and test it on your machine, you can clone the repository. Then, in your terminal, run the following commands (note that you'll also need a tool like Postman or Insomnia to send JSON messages to the API):
+```
 - npm i;
 
 - npm run dev ./src/index.ts
-
